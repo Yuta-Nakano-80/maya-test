@@ -1,0 +1,2 @@
+# maya-test
+Maya のテスト
