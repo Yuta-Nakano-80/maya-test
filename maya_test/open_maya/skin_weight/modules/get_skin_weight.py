@@ -3,7 +3,7 @@
 スキンウェイトの取得
 
 import importlib
-from maya_test.open_maya.skin_weight import get_skin_weight
+from maya_test.open_maya.skin_weight.modules import get_skin_weight
 importlib.reload(get_skin_weight)
 get_skin_weight.test()
 
@@ -33,7 +33,7 @@ import maya.OpenMaya as om
 import maya.OpenMayaAnim as oma
 
 
-def collect_skin_weights(root_node_list):
+def main(root_node_list):
     start = time.time()
 
     mesh_list = []
@@ -117,8 +117,8 @@ def collect_skin_weights(root_node_list):
     end = time.time()
     print(f"ウェイト情報取得 : {end - start:.4f} 秒")
 
-    test = True
-    if test:
+    _test = False
+    if _test:
         with open(r'D:\_temp\py_test\weight_info.json', 'w') as f:
             json.dump(weight_data, f, indent=4, ensure_ascii=False)
         print('\njson データの保存')
@@ -135,8 +135,10 @@ def test():
 
     root_node_list = ['|ch00_0000_0000', '|ch01_0000_0000']
 
-    weight_info = collect_skin_weights(root_node_list)
-    print(json.dumps(weight_info, indent=4, ensure_ascii=False))
+    weight_info = main(root_node_list)
 
-    with open(r'D:\_temp\py_test\weight_info.json', 'w') as f:
-        json.dump(weight_info, f, indent=4, ensure_ascii=False)
+    export = True
+    if export:
+        print(json.dumps(weight_info, indent=4, ensure_ascii=False))
+        with open(r'D:\_temp\py_test\weight_info.json', 'w') as f:
+            json.dump(weight_info, f, indent=4, ensure_ascii=False)
