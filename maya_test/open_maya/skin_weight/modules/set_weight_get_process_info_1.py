@@ -164,28 +164,35 @@ def main(weight_data, rig_model_shape, delivery_shape_short_name_list):
     result['weight_info'] = weight_info
 
     rig_model_short_name = rig_model_shape.split('|')[-1]
-    print('          name :', rig_model_short_name)
-    print('delivery_shape :', delivery_shape)
-    print('  skin_cluster :', skin_cluster)
-    print('      dag_path :', dag_path.fullPathName())
+
+    print('               name :', rig_model_short_name)
+    print('rig_model_transform :', rig_model_transform)
+    print('     delivery_shape :', delivery_shape)
+    print('       skin_cluster :', skin_cluster)
+    print('           dag_path :', dag_path.fullPathName())
 
     test = False
     if test:
         for i in range(influence_obj_list.length()):
             if i == 0:
-                print('     influence :', influence_obj_list[i].fullPathName())
+                print('          influence :', influence_obj_list[i].fullPathName())
             else:
-                print('               :', influence_obj_list[i].fullPathName())
+                print('                    :', influence_obj_list[i].fullPathName())
         save_json(r'joint_index_map\{}.json'.format(rig_model_short_name), joint_index_map)
 
-        print()
-        for vtx_path in list(weight_info.keys()):
+        print_weight_info = False
+        if print_weight_info:
             print()
-            print('   weight_info :', vtx_path)
-            for influence in list(weight_info[vtx_path].keys()):
-                weight = weight_info[vtx_path][influence]
-                print('     influence :', influence)
-                print('        weight :', weight)
-            print()
+            for vtx_path in list(weight_info.keys()):
+                print()
+                print('         weight_info :', vtx_path)
+                for influence in list(weight_info[vtx_path].keys()):
+                    weight = weight_info[vtx_path][influence]
+                    print('          influence :', influence)
+                    print('             weight :', weight)
+                print()
+        print_joint_index_map = True
+        if print_joint_index_map:
+            print(json.dumps(joint_index_map, indent=4, ensure_ascii=False))
 
     return result
